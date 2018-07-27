@@ -1,0 +1,124 @@
+谷歌翻墙软件推荐：
+1. shadowsocks
+2. vpm
+
+html版本历史：
+1. html:xt (xml)较早的版本
+2. html:xs (严格模式)
+3. html:4t (html4.01松散型)
+4. html:4s (严格模式)
+4. 可大量应用于移动端程序及游戏
+5. html5 (主要为了移动端设备支持多媒体)
+
+HTML5分析：
+...优点：
+1. 提高可用性和用户的友好体验
+2. 支持丰富的媒体元素可替代FLSH和Silverlight
+3. 利于SEO
+5. 可移植性好
+...缺点：
+并未被所有浏览器很好的支持，各个浏览器缺少统一的数据格式描述，造成用户体验不佳
+...html5漏洞:
+在html5中下载文件，如cookie会被放大1000倍，容量可能是5M或者以上
+...常用语义化标签：
+header section footer nav aside article
+...语义化标签兼容性问题解决方式（IE8及以下）
+1. 在该标签的css中设置该标签的display:block;  通过DOM的方式创建这个标签
+css: header{display:block;}   
+js: document.createElement("header");
+2. 引用 html5shiv.js 外部js插件 
+webstore快捷键: cc:ie6  =>   <!--[if lte IE 8]> <!--[endif]-->   
+判断浏览器是不是ie8及以下版本，该命令只对IE有作用
+
+HTML5多媒体：
+音频播放<audio></audio>
+视频播放<video></video>
+autoplay   音频就绪后自动播放      
+controls    显示控件，比如播放按钮
+loop          循环播放
+preload     在页面加载时加载音频并预备播放，如有autoplay属性则忽略该属性
+src  =>  url 音频的url
+...播放常见bug:
+1. chrome对于autoplay属性可能会不支持
+解决方案：用muted属性可以解决在chrome视频自动播放问题，但是会静音
+2. 各个浏览器对于视频格式的支持是不同的
+解决方案：写兼容性source代码
+<video autoplay controls loop>
+<source src="mov/1.mp4" />
+<source src=“mov/1.ogg” />
+对不起您的浏览器不支持,请升级
+</video>
+当浏览器支持1.mp4会播放mp4格式，支持ogg会播放ogg，如果都不支持会跳出文字
+智能表单元素：<input  type="email" />
+邮箱 => email       
+数字 => number
+url链接 => url
+滑块 => range
+颜色 => color
+时间 => time         //非常好用，不用自己去判断时间了
+...智能表单事件
+1. autocomplete="off"  =>  关闭智能提示（之前输入过的记录）
+2. novalidate  =>  关闭校验功能 （校验输入合法性的）
+3. autofocus => 自动获取焦点 （在加载完页面后自动获取焦点在标签上，如果出现两个标签都有此属性，以第一次出现的为准）
+4. placeholder => 文本框提示信息
+```css 央视设置
+input::-webkit-input-placeholder{}
+input::-moz-placeholder{}
+input::-ms-placeholder{}
+```
+5. required => 表示当前表单必须有验证
+6. <input type="text" form="fm" />   <form id="fm"></form>     可以将不在form中的控件的提交
+7. datelist 标签用户取代select (select样式非常难设置)
+```html
+<input type="text"  list=“url_list”>
+<datalist id="url_list">
+  <option value="http://www.baidu.com">百度</option>
+</datalist>
+```
+
+H5中新增获取元素的api
+document.querySelector("选择器"); //选取单个
+document.querySelectorAll("选择器"); //选取多个
+document.getElementByClassName("类名");  //选取多个
+
+H5中添加、移除、切换、是否包含样式的api
+对象.classList.add("test");    添加
+对象.classList.remove("test"); 移除
+对象.classList.toggle("test");  切换
+对象.classList.contains("test");  是否包含，返回boolean
+
+自定义属性操作（html中没有的，自己添加的）
+<div id="dv" data-name="帅哥" data-age=“20” data-user-sex="男"></div>
+...获取自定义值: 
+  dt = document.getElementById("dv").dataset      获取对象参数存在json内
+consolog(dt.name);   //帅哥
+consolog(dt["age"]);   //20
+consolog(dt.userSex);   //男
+...设置值
+dt.height="180"
+实例：制作选项卡
+
+文件读取FileReader
+...流程
+1. onchange 触发事件
+2. this.files[0] 获取文件内容
+3. let fReader=new FileReader();   //NEW一个读取文件的对象
+4. fReader.readAsText(this.files[0]);  //将文件解析为文本
+5. fReader.onload=function(){};    //通过事件来判断是否加载完成
+6. var result = fReader.result;     //通过对象中的result方法来获取结果
+7. 将结果输出
+...读取方式
+1. readAsBinaryString   二进制
+2. readAsText   文本
+3. readAsDataURL    DataURL
+...事件模型
+1. onabort    文件中断时触发
+2. onerror   出错时触发
+3. onload   读取成功时触发
+4. onloadstart  读取开始
+5. onloadend  读取结束
+6. onprogress 读取中*
+
+网络状态检测
+1. window.navigator.onLine   //返回boolean
+2. window.ononline  、 window.onoffline   //谷歌等浏览器不支持，只有少数支持不建议使用
