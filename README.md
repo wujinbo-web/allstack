@@ -1,2 +1,2 @@
-# allstack
-this is study notebook
+# 这是一个学习的笔记
+关于前段技术的学习笔记
